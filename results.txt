@@ -1,0 +1,3 @@
+train loss/sent=0.0029, acc=0.7787, time=11.11s
+valid acc=0.7932
+test acc=0.7331

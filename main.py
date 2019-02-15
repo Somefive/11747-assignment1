@@ -103,12 +103,3 @@ for ITER in range(100):
         predict = scores.argmax(dim=1)
         valid_correct += (predict == tag_tensor).sum().item()
     print("iter %r: valid acc=%.4f" % (ITER+1, valid_correct / valid_size))
-    test_correct = 0.0
-    for index in range(0, test_size, test_size):
-        words, tag = zip(*valid[index:index+test_size])
-        words_tensor = torch.nn.utils.rnn.pad_sequence(words, batch_first=True)
-        tag_tensor = torch.tensor(tag).type(type)
-        scores = model(words_tensor)
-        predict = scores.argmax(dim=1)
-        test_correct += (predict == tag_tensor).sum().item()
-    print("iter %r: test acc=%.4f" % (ITER+1, test_correct / test_size))
