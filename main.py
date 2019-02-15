@@ -35,7 +35,6 @@ use_cuda = torch.cuda.is_available()
 print('cuda:', use_cuda)
 if use_cuda:
     type = torch.cuda.LongTensor
-    model.cuda()
 
 # Functions to read in the corpus
 w2i = defaultdict(lambda: len(w2i))
@@ -67,6 +66,8 @@ nwords, ntags = len(w2i), len(t2i)
 print('Data loaded')
 # initialize the model
 model = CNNclass(nwords, EMB_SIZE, FILTER_SIZE, WIN_SIZE, ntags)
+if use_cuda:
+    model.cuda()
 criterion = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters())
 
@@ -110,4 +111,4 @@ for ITER in range(100):
         scores = model(words_tensor)
         predict = scores.argmax(dim=1)
         test_correct += (predict == tag_tensor).sum().item()
-    print("iter %r: valid acc=%.4f" % (ITER+1, test_correct / test_size))
+    print("iter %r: test acc=%.4f" % (ITER+1, test_correct / test_size))
