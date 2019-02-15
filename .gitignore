@@ -1,1 +1,5 @@
 topicclass/
+__pycache__/
+*.vec
+*.npy
+*.pkl
